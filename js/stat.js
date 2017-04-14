@@ -29,7 +29,11 @@ function renderStatistics(ctx, names, times) {
   var inintialУ = 90; // Начальная координата гистрограммы по У
 
   for (i = 0; i < times.length; i++) {
-    (names[i] === 'Вы') ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.1) + 0.1) + ')';
+    if (names[i] === 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    } else {
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.1) + 0.1) + ')';
+    }
     ctx.fillRect(inintialX + i * histogramIndent, inintialУ + (150 - times[i] * histogramUnitHeight), histogramWidth, times[i] * histogramUnitHeight);
     ctx.fillStyle = 'black';
     ctx.fillText(times[i].toFixed(0), inintialX + i * histogramIndent, inintialУ + (150 - times[i] * histogramUnitHeight) - textIndent);
