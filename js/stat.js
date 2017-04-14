@@ -15,15 +15,12 @@ function renderStatistics(ctx, names, times) {
   var maxTime = -1;
   var indexOfMaxTime;
   
-  console.log(times);
   for (i = 0; i < times.length; i++) {
     if (times[i] > maxTime) {
       maxTime = times[i];
       indexOfMaxTime = i;
     };
   };
-  console.log(maxTime);
-  console.log(indexOfMaxTime);
 
   var histogramHeight = 150;
   var histogramUnitHeight = histogramHeight / maxTime; //Высота единицы для пропорционального отображения
