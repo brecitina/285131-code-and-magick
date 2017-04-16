@@ -1,5 +1,5 @@
 'use strict';
-function renderStatistics(ctx, names, times) {
+window.renderStatistics = function renderStatistics(ctx, names, times) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.fillRect(110, 20, 420, 270); // Тень
 
@@ -27,16 +27,29 @@ function renderStatistics(ctx, names, times) {
   var textIndent = 10;
   var inintialX = 155; // Начальная координата гистрограммы по Х
   var inintialУ = 90; // Начальная координата гистрограммы по У
+  function selectRandomOpacity(r, g, b) {
+    var a = Math.random() * (1 - 0.1) + 0.1;
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+  }
+  function drawHistogramColumn(idx, time) {
+    ctx.fillRect(inintialX + idx * histogramIndent, inintialУ + (150 - time * histogramUnitHeight), histogramWidth, time * histogramUnitHeight);
+  }
+  function drawColumnValue(idx, time) {
+    ctx.fillText(time.toFixed(0), inintialX + idx * histogramIndent, inintialУ + (150 - time * histogramUnitHeight) - textIndent);
+  }
+  function drawColumnName(idx, name) {
+    ctx.fillText(name, inintialX + idx * histogramIndent, inintialУ + histogramHeight + textIndent * 2);
+  }
 
   for (i = 0; i < times.length; i++) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.1) + 0.1) + ')';
+      ctx.fillStyle = selectRandomOpacity(0, 0, 255);
     }
-    ctx.fillRect(inintialX + i * histogramIndent, inintialУ + (150 - times[i] * histogramUnitHeight), histogramWidth, times[i] * histogramUnitHeight);
+    drawHistogramColumn(i, times[i]);
     ctx.fillStyle = 'black';
-    ctx.fillText(times[i].toFixed(0), inintialX + i * histogramIndent, inintialУ + (150 - times[i] * histogramUnitHeight) - textIndent);
-    ctx.fillText(names[i], inintialX + i * histogramIndent, inintialУ + histogramHeight + textIndent * 2);
+    drawColumnValue(i, times[i]);
+    drawColumnName(i, names[i]);
   }
-}
+};
