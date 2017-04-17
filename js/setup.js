@@ -40,3 +40,13 @@ var wizards = [{
   coatColor: getRandomItem(coatColors),
   eyesColor: getRandomItem(eyesColors),
 }];
+
+document.querySelector('.setup-similar').classList.remove('hidden'); // временно, чтобы видеть волшебников
+
+var similarListOfWizards = document.querySelector('.setup-similar-list');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
+
+for (var i = 0; i < 4; i++) {
+  var oneSimilarWizard = similarWizardTemplate.cloneNode(true);
+  similarListOfWizards.appendChild(oneSimilarWizard);
+}
