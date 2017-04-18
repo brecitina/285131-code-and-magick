@@ -16,15 +16,15 @@ function getRandomItem(array) {
   return array[i];
 }
 
-var ALL_NAMES = [FIRST_NAMES, SURNAMES]; // этот масси в тоже в верхнем регистре называем?
+var allNames = [FIRST_NAMES, SURNAMES]; // этот масси в тоже в верхнем регистре называем?
 
 function getRandomName() {
   var j = Math.random() * 2;
   j = Math.floor(j);
   if (j === 0) {
-    return getRandomItem(ALL_NAMES[j]) + ' ' + getRandomItem(ALL_NAMES[1]);
+    return getRandomItem(allNames[j]) + ' ' + getRandomItem(allNames[1]);
   } else {
-    return getRandomItem(ALL_NAMES[j]) + ' ' + getRandomItem(ALL_NAMES[0]);
+    return getRandomItem(allNames[j]) + ' ' + getRandomItem(allNames[0]);
   }
 }
 
@@ -46,7 +46,6 @@ var wizards = [{
   eyesColor: getRandomItem(EYES_COLORS),
 }];
 
-var similarListOfWizards = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
 
 var renderWizard = function (wizard) {
@@ -58,10 +57,14 @@ var renderWizard = function (wizard) {
   return oneSimilarWizard;
 };
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
-}
-similarListOfWizards.appendChild(fragment);
+var fillWithWizards = function (array) {
+  var similarListOfWizards = document.querySelector('.setup-similar-list');
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < array.length; i++) {
+    fragment.appendChild(renderWizard(array[i]));
+  }
+  similarListOfWizards.appendChild(fragment);
+};
 
+fillWithWizards(wizards);
 setupWindow.querySelector('.setup-similar').classList.remove('hidden');
